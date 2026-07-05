@@ -22,3 +22,10 @@ tags: [maintenance]
 - Changed: Copied the Harness wiki into the Harness project workspace under `docs/wiki/` and added local operating files for standalone use.
 - Pages: [index](index.md), [log](log.md), [local README](../README.md)
 - Notes: This copy includes `AGENTS.md`, `templates/`, and `wiki-kit.json` so it can be moved or recreated without depending on the original `LLM-KB` repository path.
+
+## [2026-07-04] synthesis | Add recommended tech stack
+
+- Wiki: `docs/Harness-wiki/`
+- Changed: Added a dedicated recommended tech stack page and linked it from the architecture, open questions, and index pages.
+- Pages: [recommended tech stack](synthesis/recommended-tech-stack.md), [recommended architecture](synthesis/recommended-architecture.md), [open design questions](synthesis/open-design-questions.md), [index](index.md)
+- Notes: The stack is captured as user-provided project guidance from this session; `raw/` was not changed.

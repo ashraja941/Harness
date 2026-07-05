@@ -35,6 +35,10 @@ The best current architecture is a modular, provider-neutral coding runtime with
 - Persistence and event store: records sessions, events, messages, tool calls, approvals, artifacts, checkpoints, memory, and replay data.
 - Extension system: supports tools, hooks, providers, skills, policy modules, sandboxes, clients, and observability exporters without granting unrestricted trust.
 
+## Implementation Stack
+
+The provisional implementation stack is captured in [Recommended Tech Stack](recommended-tech-stack.md). The stack selects Python 3.12+, `uv`, `asyncio`, `httpx`, `pydantic`, `typer`, `rich`, `textual`, SQLite with `aiosqlite`, official OpenAI and Anthropic SDKs behind a custom provider interface, native filesystem/Git/editing/shell/testing tools, Docker or Podman sandboxing behind an OCI-compatible interface, OpenTelemetry, and deferred ACP/A2A integration.
+
 ## Counterpoints
 
 - A workflow framework could provide durable state, checkpointing, graph execution, distributed tasks, and orchestration features, but the source recommends a custom loop until concrete requirements justify the added abstraction.
@@ -44,6 +48,7 @@ The best current architecture is a modular, provider-neutral coding runtime with
 ## Changes Over Time
 
 - Initial synthesis created from a single design-context source. Future sources should refine implementation language, runtime deployment shape, event schemas, sandbox defaults, plugin model, and evaluation suite.
+- 2026-07-04: Added a provisional implementation stack in [Recommended Tech Stack](recommended-tech-stack.md), resolving the primary language and initial technology choices while leaving runtime deployment shape and stable event schemas open.
 
 ## Confidence
 
@@ -51,7 +56,7 @@ High for the architectural direction because the source is internally consistent
 
 ## Open Questions
 
-- Which implementation language and runtime deployment shape best fit the project?
+- Which runtime deployment shape best fits the project: local process, daemon, service, or multiple modes?
 - Which event schemas become stable public API?
 - Which sandbox backend should ship first?
 - How much of the plugin system should be available before interoperability phase work?

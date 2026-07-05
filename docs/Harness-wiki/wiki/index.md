@@ -16,6 +16,7 @@ This wiki captures the design knowledge for a next-generation AI coding harness:
 
 - [Overview](overview.md) - High-level summary of the desired harness architecture.
 - [Recommended Architecture](synthesis/recommended-architecture.md) - Current thesis for the modular runtime design.
+- [Recommended Tech Stack](synthesis/recommended-tech-stack.md) - Current implementation stack and core architectural choices.
 - [Implementation Roadmap](synthesis/implementation-roadmap.md) - Suggested capability phases from single-agent runtime to controlled delegation.
 - [Open Design Questions](synthesis/open-design-questions.md) - Questions to resolve before or during implementation.
 

@@ -16,7 +16,7 @@ Several decisions should remain open until implementation constraints are cleare
 
 ## Runtime
 
-- Which primary implementation language best fits portability, performance, and ecosystem needs?
+- Resolved provisionally: use Python 3.12+ with the stack captured in [Recommended Tech Stack](recommended-tech-stack.md).
 - Should the runtime be a local process, daemon, service, or support all three?
 - How should clients discover and connect to the runtime?
 
@@ -90,15 +90,16 @@ Several decisions should remain open until implementation constraints are cleare
 
 ## Counterpoints
 
-- Some questions may need provisional answers before coding starts, especially implementation language, runtime shape, default permission modes, and phase 1 acceptance tasks.
+- Some questions may need provisional answers before coding starts, especially runtime shape, default permission modes, and phase 1 acceptance tasks.
 
 ## Changes Over Time
 
 - Initial tracker created from the source document. Future entries should add decisions, evidence, and links to resulting concept or decision pages.
+- 2026-07-04: Marked the primary implementation language and initial technology stack as provisionally resolved by [Recommended Tech Stack](recommended-tech-stack.md).
 
 ## Confidence
 
-High that these are current open questions; low for any implied answer because the source intentionally leaves them unresolved.
+High that the remaining items are current open questions; medium for the provisional stack answer because it is user-provided project guidance rather than source-derived analysis.
 
 ## Open Questions
 

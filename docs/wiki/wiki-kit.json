@@ -1,0 +1,10 @@
+{
+  "schema": "llm-wiki-kit/v1",
+  "name": "Harness",
+  "raw": "raw",
+  "wiki": "wiki",
+  "templates": "templates",
+  "created": "2026-07-04",
+  "relocated": "2026-07-04",
+  "notes": "Standalone copy of the Harness wiki for use from the Harness project workspace."
+}

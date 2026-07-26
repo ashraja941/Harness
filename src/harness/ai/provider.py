@@ -1,4 +1,9 @@
 from typing import Protocol
+from collections.abc import AsyncIterator
+
+from harness.agent.messages import AgentMessage
+from harness.agent.tools import AgentTool, ToolCall
+from harness.ai.events import ProviderEvent
 
 
 class ModelProvider(Protocol):
@@ -6,13 +11,14 @@ class ModelProvider(Protocol):
     Provider Neutral interface to get streaming outputs
     """
 
-    # TODO:: Change types to Agent specific types
     def stream_response(
         self,
         *,
         model: str,
         system: str,
-        messages: list[str],
-        tools: list[str],
+        messages: list[AgentMessage],
+        tools: list[AgentTool],
         signal: bool | None,
-    ): ...
+    ) -> AsyncIterator[ProviderEvent]:
+        """Stream a models response in the form of a provider event"""
+        ...

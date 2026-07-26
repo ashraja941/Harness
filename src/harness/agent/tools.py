@@ -28,7 +28,7 @@ class ToolExecutor(Protocol):
         ...
 
 
-class ToolCalls(BaseModel):
+class ToolCall(BaseModel):
     """Agent asks for this tool to be executed"""
 
     model_config = ConfigDict(extra="forbid")

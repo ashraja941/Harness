@@ -1,6 +1,9 @@
 from typing import Literal
 from pydantic import BaseModel, ConfigDict
 
+from harness.agent.messages import AgentMessage, AssistantMessage
+from harness.agent.tools import ToolCall
+
 
 class ProviderResponseStartEvent(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -13,7 +16,7 @@ class ProviderResponseEndEvent(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     type: Literal["response_end"] = "response_end"
-    message: str  # TODO: Change to Agent specific type
+    message: AssistantMessage
 
 
 class ProviderTextDeltaEvent(BaseModel):
@@ -27,7 +30,7 @@ class ProviderToolCallEvent(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     type: Literal["tool_call"] = "tool_call"
-    tool_call: str  # TODO: Change to Agent specific type
+    tool_call: ToolCall
 
 
 ProviderEvent = (

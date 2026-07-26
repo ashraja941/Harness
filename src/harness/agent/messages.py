@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from typing import Any, Literal
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
+from harness.agent.tools import ToolCall
 from harness.agent.types import JSONValue
 
 
@@ -20,8 +21,8 @@ class AssistantMessage(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     role: Literal["assistant"] = "assistant"
-    tool_calls: list[dict[str, Any]]  # TODO: Change to tool call type
-    content: str
+    tool_calls: list[ToolCall] = Field(default_factory=list)
+    content: str = ""
 
 
 class ToolResultMessage(BaseModel):

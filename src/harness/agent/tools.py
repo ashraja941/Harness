@@ -6,6 +6,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from collections.abc import Awaitable, Mapping
 
 from harness.agent.types import JSONValue
+from harness.agent.messages import WireModel
 
 
 class ToolCancellationToken(Protocol):
@@ -28,20 +29,16 @@ class ToolExecutor(Protocol):
         ...
 
 
-class ToolCall(BaseModel):
+class ToolCall(WireModel):
     """Agent asks for this tool to be executed"""
-
-    model_config = ConfigDict(extra="forbid")
 
     id: str
     name: str
     arguments: dict[str, JSONValue] = Field(default_factory=dict)
 
 
-class AgentToolResult(BaseModel):
+class AgentToolResult(WireModel):
     """Result from an executed tool call"""
-
-    model_config = ConfigDict(extra="forbid")
 
     tool_call_id: str
     name: str

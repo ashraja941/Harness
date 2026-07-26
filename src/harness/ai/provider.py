@@ -4,7 +4,7 @@ from typing import Protocol
 from collections.abc import AsyncIterator
 
 from harness.agent.messages import AgentMessage
-from harness.agent.tools import AgentTool, ToolCall
+from harness.agent.tools import AgentTool
 from harness.ai.events import ProviderEvent
 
 

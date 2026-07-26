@@ -2,11 +2,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Protocol
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import Field
 from collections.abc import Awaitable, Mapping
 
+from harness.agent.base import WireModel
 from harness.agent.types import JSONValue
-from harness.agent.messages import WireModel
 
 
 class ToolCancellationToken(Protocol):

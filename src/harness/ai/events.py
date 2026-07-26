@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 from typing import Literal
-from pydantic import BaseModel, ConfigDict
 
-from harness.agent.messages import AgentMessage, AssistantMessage, WireModel
+from harness.agent.base import WireModel
+from harness.agent.messages import AssistantMessage
 from harness.agent.tools import ToolCall
 
 

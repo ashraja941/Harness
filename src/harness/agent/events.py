@@ -4,7 +4,8 @@ from typing import Literal
 
 from pydantic import Field
 
-from harness.agent.messages import AgentMessage, AssistantMessage, WireModel
+from harness.agent.base import WireModel
+from harness.agent.messages import AgentMessage
 from harness.agent.tools import AgentToolResult
 from harness.agent.types import JSONValue
 
@@ -58,10 +59,6 @@ class MessageStartEvent(WireModel):
 class MessageUpdateEvent(WireModel):
     type: Literal["message_update"] = "message_update"
     message: AgentMessage
-    # TODO : Fix the types
-    # assistant_message_event: AssistantMessageEvent = Field(
-    #     serialization_alias="assistantMessageEvent"
-    # )
 
 
 class MessageEndEvent(WireModel):
@@ -102,5 +99,5 @@ type AgentEvent = (
     | MessageEndEvent
     | ToolExecutionStartEvent
     | ToolExecutionUpdateEvent
-    | ToolExecutionEndEvent,
+    | ToolExecutionEndEvent
 )

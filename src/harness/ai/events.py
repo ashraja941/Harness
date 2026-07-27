@@ -27,6 +27,11 @@ class ProviderToolCallEvent(WireModel):
     tool_call: ToolCall
 
 
+class ProviderErrorEvent(WireModel):
+    type: Literal["error"] = "error"
+    error: str
+
+
 ProviderEvent = (
     ProviderResponseStartEvent
     | ProviderResponseEndEvent

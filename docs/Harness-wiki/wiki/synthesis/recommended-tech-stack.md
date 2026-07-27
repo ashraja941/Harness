@@ -2,8 +2,9 @@
 type: synthesis
 status: active
 created: 2026-07-04
-updated: 2026-07-04
-sources: []
+updated: 2026-07-26
+sources:
+  - wiki/sources/2026-07-26-tau-coding-agent.md
 tags: [architecture, tech-stack, implementation]
 ---
 
@@ -11,58 +12,55 @@ tags: [architecture, tech-stack, implementation]
 
 ## Current Thesis
 
-The first implementation should use a Python 3.12+ async runtime with native tools, SQLite persistence, official model-provider SDKs behind a custom provider interface, and standards-based integrations at system boundaries. This stack supports the current architecture goal: a reliable single-agent coding harness before adding heavier orchestration, subagents, remote agent integration, or performance-specific rewrites.
+The first implementation should stay close to Tau's lean Python stack: Python 3.12+, typed Pydantic models, async provider streaming, Typer/Rich for terminal surfaces, optional Textual for a TUI, and durable local sessions before heavier infrastructure. The stack page should distinguish what is installed today from what is planned. See [Tau Coding Agent](../sources/2026-07-26-tau-coding-agent.md).
 
 ## Stack Choices
 
-| Area | Choice |
+| Area | Current / Target Choice |
 | --- | --- |
 | Primary language | Python 3.12+ |
 | Package management | `uv` |
-| Async runtime | `asyncio` with `TaskGroup`, queues, timeouts, and async subprocesses |
-| HTTP and streaming | `httpx` |
+| Async runtime | Current: standard async protocols; target: `asyncio` or `anyio` patterns as needed |
+| HTTP and streaming | Current: `httpx`; Tau reference: `httpx[socks]` |
 | Schemas and validation | `pydantic`, `pydantic-settings` |
 | CLI | `typer` |
 | Terminal output | `rich` |
-| Full TUI | `textual` |
-| Persistence | SQLite with `aiosqlite` |
-| Model providers | Official OpenAI and Anthropic Python SDKs behind a custom provider interface |
-| External tools | Official Python MCP SDK |
-| Code search | `ripgrep` |
-| Code parsing | `tree-sitter` |
-| Git operations | Native Git subprocesses; optionally `GitPython` for simple metadata |
-| File watching | `watchfiles` |
-| Path matching | `pathspec` |
-| Retries | `tenacity` |
-| Serialization | `orjson` |
-| Testing | `pytest`, `pytest-asyncio`, `hypothesis`, `respx` |
-| Observability | OpenTelemetry |
-| Sandboxing | Docker or Podman behind an OCI-compatible sandbox interface |
-| Static analysis output | SARIF |
-| Editor integration later | ACP |
-| Remote agent integration later | A2A |
-| Optional workflow framework | LangGraph only if durable graph workflows become necessary |
+| Full TUI | Planned: `textual` when interactive TUI work begins |
+| Persistence | Target first: append-only JSONL sessions; defer SQLite until requirements justify it |
+| Model providers | Current: `openai`; target: provider-neutral adapters, potentially Anthropic, Hugging Face, OpenRouter, and OpenAI-compatible endpoints |
+| External tools | Defer MCP until the built-in coding tool layer works |
+| Code search | Native tools can use `ripgrep` subprocesses when added |
+| Git operations | Native Git subprocesses when coding tools need Git awareness |
+| File watching | Defer until TUI/session requirements need it |
+| Path matching | Add only when project-resource discovery needs it |
+| Retries | Add only when provider/tool failure policy needs it |
+| Serialization | Standard JSON is sufficient until performance or schema requirements justify alternatives |
+| Testing | Current: `pytest`, `pytest-asyncio`; target: fake providers and fake tools for deterministic loop tests |
+| Observability | Event stream first; defer OpenTelemetry |
+| Sandboxing | Defer Docker/Podman until the basic coding agent works |
+| Editor integration later | ACP remains later |
+| Remote agent integration later | A2A remains later |
+| Optional workflow framework | Avoid until durable graph workflows become necessary |
 
 ## Core Architectural Choices
 
-- Use a custom async agent loop.
+- Use a custom async agent loop inspired by Tau.
 - Keep the runtime independent from the TUI.
 - Use `AGENTS.md` for repository instructions.
 - Use Agent Skills for reusable workflows.
 - Keep filesystem, Git, editing, shell, and testing tools native.
 - Use MCP mainly for external services.
-- Start with SQLite, not PostgreSQL or a vector database.
+- Start with append-only JSONL sessions, not SQLite, PostgreSQL, or a vector database.
 - Start with a reliable single agent before adding subagents.
-- Use Zig later only for measured performance bottlenecks.
+- Add performance-specific dependencies only after measurement.
 
 ## Rationale
 
-- Python 3.12+ fits the target ecosystem for model-provider SDKs, MCP integration, async orchestration, CLI/TUI tooling, testing, and rapid iteration.
+- Python 3.12+ fits both the current project and Tau's implementation baseline.
 - A custom `asyncio` loop preserves control over tool execution, policy checks, context selection, retries, cancellation, streaming, and quality gates.
 - Native filesystem, Git, editing, shell, and testing tools keep reliability-critical behavior inside the harness rather than outsourcing it to external protocols.
-- SQLite keeps persistence simple, inspectable, local-first, and sufficient for early event storage, replay, session state, and audit records.
-- Docker or Podman behind an OCI-compatible interface keeps sandbox implementation replaceable.
-- ACP, A2A, LangGraph, and Zig are deferred until concrete integration, durability, delegation, or performance requirements justify them.
+- Append-only JSONL sessions match Tau's emphasis on durable, inspectable history and are simpler than a database for the first implementation.
+- SQLite, Docker/Podman, OpenTelemetry, MCP, ACP, A2A, LangGraph, and performance-specific dependencies are deferred until concrete requirements justify them.
 
 ## Relationship To Architecture
 
@@ -71,6 +69,7 @@ This page resolves the provisional implementation stack for [Recommended Archite
 ## Changes Over Time
 
 - Initial stack captured from user-provided project guidance on 2026-07-04.
+- 2026-07-26: Reconciled the stack with Tau and the current `pyproject.toml`; moved SQLite, MCP, sandboxing, and observability to later phases.
 
 ## Confidence
 

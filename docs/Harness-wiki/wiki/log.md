@@ -2,7 +2,7 @@
 type: log
 status: active
 created: 2026-07-04
-updated: 2026-07-04
+updated: 2026-07-26
 sources: []
 tags: [maintenance]
 ---
@@ -29,3 +29,10 @@ tags: [maintenance]
 - Changed: Added a dedicated recommended tech stack page and linked it from the architecture, open questions, and index pages.
 - Pages: [recommended tech stack](synthesis/recommended-tech-stack.md), [recommended architecture](synthesis/recommended-architecture.md), [open design questions](synthesis/open-design-questions.md), [index](index.md)
 - Notes: The stack is captured as user-provided project guidance from this session; `raw/` was not changed.
+
+## [2026-07-26] synthesis | Align wiki with Tau coding agent
+
+- Wiki: `docs/Harness-wiki/`
+- Changed: Added Tau as an external implementation source, reoriented architecture and roadmap pages around Tau's layered event-first coding-agent design, recorded current Python implementation status, updated related concept pages, and fixed stale wiki-root path references.
+- Pages: [Tau source summary](sources/2026-07-26-tau-coding-agent.md), [Tau alignment](synthesis/tau-alignment.md), [current implementation status](synthesis/current-implementation-status.md), [overview](overview.md), [recommended architecture](synthesis/recommended-architecture.md), [implementation roadmap](synthesis/implementation-roadmap.md), [recommended tech stack](synthesis/recommended-tech-stack.md), [open design questions](synthesis/open-design-questions.md), [agent execution loop](concepts/agent-execution-loop.md), [tool system](concepts/tool-system.md), [persistence replay observability](concepts/persistence-replay-observability.md), [index](index.md)
+- Notes: `raw/` was not changed. Tau is treated as the primary near-term implementation reference while the original broad platform design remains long-term context.

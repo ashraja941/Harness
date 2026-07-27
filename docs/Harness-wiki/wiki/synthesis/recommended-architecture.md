@@ -2,9 +2,10 @@
 type: synthesis
 status: active
 created: 2026-07-04
-updated: 2026-07-04
+updated: 2026-07-26
 sources:
   - wiki/sources/2026-07-04-ai-coding-harness-design-context.md
+  - wiki/sources/2026-07-26-tau-coding-agent.md
 tags: [architecture, synthesis]
 ---
 
@@ -12,17 +13,26 @@ tags: [architecture, synthesis]
 
 ## Current Thesis
 
-The best current architecture is a modular, provider-neutral coding runtime with open standards at external boundaries and custom control over reliability-critical behavior. The harness should start as a dependable single-agent runtime and add durability, interoperability, and controlled delegation only after the core loop, tools, policy, context management, editing, and quality gates are reliable.
+The best current architecture is a Tau-inspired, provider-neutral coding agent with three small layers: provider/model streaming, a portable agent core, and a coding-application wrapper. The harness should first build the reusable event-driven agent brain and only later add larger platform features such as advanced policy, sandboxing, MCP, ACP/A2A, and subagents.
 
 ## Supporting Evidence
 
 - The source explicitly states that the strongest design is a modular runtime with standards at boundaries and custom control over central behavior. See [AI Coding Harness Design Context](../sources/2026-07-04-ai-coding-harness-design-context.md).
+- Tau provides the current implementation reference: `tau_ai` translates providers into provider-neutral streams, `tau_agent` owns messages, tools, events, loop, harness, and session primitives, and `tau_coding` owns CLI/TUI, coding tools, config, instructions, skills, and on-disk sessions. See [Tau Coding Agent](../sources/2026-07-26-tau-coding-agent.md).
+- The current Harness source tree already follows part of this shape with `harness.ai` provider/event primitives and `harness.agent` message/tool/event primitives. See [Current Implementation Status](current-implementation-status.md).
 - The source lists custom-control areas including execution loop, context selection, context compaction, risk classification, approval policy, editing behavior, session state, quality gates, memory policy, subagent scheduling, cost controls, failure recovery, plugin trust, and human interaction model.
 - The source recommends standards for repository instructions, skills, external tools/resources, editor integration, remote-agent federation, language intelligence, sandbox portability, observability, static-analysis findings, and structured schemas.
 - The source states that no prompt, instruction file, hook, or system message should be treated as a security boundary.
 - The source identifies context selection, edit reliability, side-effect control, failure recovery, verification, and truthful reporting as the main strategic differentiators.
 
-## Component Model
+## Tau-Aligned Component Model
+
+- Provider layer: provider-specific adapters translate OpenAI, Anthropic, Hugging Face, OpenRouter, or compatible endpoints into provider-neutral stream events.
+- Agent core: messages, tools, events, the agent loop, harness configuration, and portable session primitives live below UI and coding-app concerns.
+- Coding application: CLI, print mode, optional TUI, built-in `read`/`write`/`edit`/`bash` tools, project instructions, skills, provider config, and on-disk sessions wrap the portable core.
+- Frontends and renderers: consume events rather than raw provider chunks or internal state.
+
+## Longer-Term Platform Components
 
 - Client layer: CLI, TUI, editor, web, API, or remote runner surfaces that communicate with the runtime.
 - Session supervisor: starts/resumes sessions, tracks limits, handles cancellation, checkpointing, configuration, and lifecycle events.
@@ -37,18 +47,20 @@ The best current architecture is a modular, provider-neutral coding runtime with
 
 ## Implementation Stack
 
-The provisional implementation stack is captured in [Recommended Tech Stack](recommended-tech-stack.md). The stack selects Python 3.12+, `uv`, `asyncio`, `httpx`, `pydantic`, `typer`, `rich`, `textual`, SQLite with `aiosqlite`, official OpenAI and Anthropic SDKs behind a custom provider interface, native filesystem/Git/editing/shell/testing tools, Docker or Podman sandboxing behind an OCI-compatible interface, OpenTelemetry, and deferred ACP/A2A integration.
+The current implementation stack is captured in [Recommended Tech Stack](recommended-tech-stack.md). It should now distinguish dependencies already present in `pyproject.toml` from Tau-inspired target dependencies and later platform infrastructure.
 
 ## Counterpoints
 
 - A workflow framework could provide durable state, checkpointing, graph execution, distributed tasks, and orchestration features, but the source recommends a custom loop until concrete requirements justify the added abstraction.
 - Multi-agent orchestration can improve parallel investigation and specialized review, but the source recommends single-agent reliability first.
 - Full context can be simpler in small repositories, but layered search, pinned state, and structured compaction are the recommended scalable path.
+- Tau's architecture is intentionally smaller than the original Harness platform vision; the wiki should preserve long-term concerns without letting them obscure the first usable coding agent.
 
 ## Changes Over Time
 
 - Initial synthesis created from a single design-context source. Future sources should refine implementation language, runtime deployment shape, event schemas, sandbox defaults, plugin model, and evaluation suite.
 - 2026-07-04: Added a provisional implementation stack in [Recommended Tech Stack](recommended-tech-stack.md), resolving the primary language and initial technology choices while leaving runtime deployment shape and stable event schemas open.
+- 2026-07-26: Reoriented the recommended architecture around Tau's three-layer coding-agent design and added current implementation status.
 
 ## Confidence
 

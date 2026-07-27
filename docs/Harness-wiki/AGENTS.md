@@ -14,12 +14,12 @@ Do not edit raw source files unless the user explicitly asks. Treat raw files as
 
 ## Workspace Layout
 
-The wiki root is the folder containing this `AGENTS.md`, `wiki-kit.json`, `raw/`, `wiki/`, and `templates/`. This copy is intended to live at `docs/wiki/` inside the Harness project, but the folder can be moved as a unit.
+The wiki root is the folder containing this `AGENTS.md`, `wiki-kit.json`, `raw/`, `wiki/`, and `templates/`. This copy currently lives at `docs/Harness-wiki/` inside the Harness project, but the folder can be moved as a unit.
 
 Use this structure:
 
 ```text
-docs/wiki/
+docs/Harness-wiki/
   AGENTS.md
   wiki-kit.json
   templates/
@@ -118,7 +118,7 @@ Use append-only entries in `wiki/log.md`:
 ```markdown
 ## [YYYY-MM-DD] type | Title
 
-- Wiki: `docs/wiki/`
+- Wiki: `docs/Harness-wiki/`
 - Changed: short description
 - Pages: page links
 - Notes: important decisions or uncertainties

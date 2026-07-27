@@ -2,31 +2,32 @@
 type: overview
 status: active
 created: 2026-07-04
-updated: 2026-07-04
+updated: 2026-07-26
 sources:
   - wiki/sources/2026-07-04-ai-coding-harness-design-context.md
+  - wiki/sources/2026-07-26-tau-coding-agent.md
 tags: [ai-coding-harness, architecture]
 ---
 
 # Overview
 
-The target system is an AI coding harness: a controlled execution platform that lets one or more language models inspect, reason about, modify, test, and explain software projects through explicit tools and policies. It should not be reduced to a chat UI connected to a shell; the source frames the runtime as responsible for orchestration, tool invocation, repository understanding, context selection, permissions, persistence, recovery, verification, oversight, interoperability, observability, and evaluation. See [AI Coding Harness Design Context](sources/2026-07-04-ai-coding-harness-design-context.md).
+The target system is now a Tau-inspired Python coding agent: a small, readable terminal-first harness that lets a language model inspect, modify, test, and explain software projects through typed tools and provider-neutral events. The original design context remains useful for long-term platform concerns, but Tau is now the primary near-term implementation reference. See [AI Coding Harness Design Context](sources/2026-07-04-ai-coding-harness-design-context.md) and [Tau Coding Agent](sources/2026-07-26-tau-coding-agent.md).
 
 ## Current Direction
 
-- Build a [[modular-runtime]] with standards at external boundaries and custom control over core behavior.
-- Keep the central runtime independent of any one terminal, editor, web UI, or model vendor.
-- Enforce safety below the model through tools, filesystem restrictions, process controls, network controls, sandboxing, credentials isolation, and policy.
-- Prefer a dependable single-agent runtime before adding bounded [[subagents-and-a2a]].
-- Make every significant action observable and replayable without depending on hidden chain-of-thought.
+- Follow [[tau-alignment]]: provider streaming, portable agent core, and coding-app concerns should remain separated.
+- Build the Tau-style core first: provider-neutral events, messages, tools, agent loop, harness, and session primitives.
+- Keep the reusable core independent of CLI, Rich, Textual, local config paths, slash commands, and rendering.
+- Treat events as the contract consumed by print mode, TUI, custom frontends, and future extensions.
+- Keep broader policy, sandboxing, MCP, ACP/A2A, and subagent work as later-stage concerns unless a concrete milestone requires them.
 
 ## Architectural Shape
 
-The source separates the system into clients, session supervisor, agent runtime, context manager, tool registry/router, policy and approval engine, sandbox layer, quality gate, persistence/event store, and extension system. These responsibilities are expanded in [Recommended Architecture](synthesis/recommended-architecture.md).
+The current architectural shape follows Tau's three-layer dependency direction: provider/model streaming, portable agent brain, and coding application wrapper. These responsibilities are expanded in [Recommended Architecture](synthesis/recommended-architecture.md), [Tau Alignment](synthesis/tau-alignment.md), and [Current Implementation Status](synthesis/current-implementation-status.md).
 
 ## Initial Priorities
 
-The first implementation phase should focus on a provider-neutral model interface, controlled agent loop, event streaming, repository reading/search, safe editing, shell and test execution, git diff, permission engine, basic client, session limits, and clear final reporting. See [Implementation Roadmap](synthesis/implementation-roadmap.md).
+The first implementation phase should finish the minimal provider-neutral agent loop and test it with fake providers and fake tools. The next usable milestone should add a simple CLI or print mode, built-in coding tools, and append-only local sessions. See [Implementation Roadmap](synthesis/implementation-roadmap.md).
 
 ## Important Constraints
 
